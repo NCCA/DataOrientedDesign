@@ -1438,8 +1438,101 @@ obj/Emitter.o: src/Emitter.cpp include/Emitter.h \
 		/Users/jmacey/NGL/include/ngl/rapidxml/rapidxml.hpp \
 		/Users/jmacey/NGL/include/ngl/RibExport.h \
 		/Users/jmacey/NGL/include/ngl/Plane.h \
+		/Users/jmacey/NGL/include/ngl/VertexArrayObject.h \
 		include/Particle.h \
-		/Users/jmacey/NGL/include/ngl/Colour.h
+		/Users/jmacey/NGL/include/ngl/Colour.h \
+		/Users/jmacey/Qt5.3.2/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QElapsedTimer \
+		/Users/jmacey/Qt5.3.2/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qelapsedtimer.h \
+		/Users/jmacey/NGL/include/ngl/Logger.h \
+		/Users/jmacey/NGL/include/ngl/Singleton.h \
+		/usr/local/include/boost/scoped_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/scoped_ptr.hpp \
+		/usr/local/include/boost/iostreams/stream.hpp \
+		/usr/local/include/boost/iostreams/constants.hpp \
+		/usr/local/include/boost/iostreams/detail/ios.hpp \
+		/usr/local/include/boost/iostreams/detail/config/wide_streams.hpp \
+		/usr/local/include/boost/iostreams/detail/char_traits.hpp \
+		/usr/local/include/boost/iostreams/detail/config/overload_resolution.hpp \
+		/usr/local/include/boost/iostreams/detail/config/gcc.hpp \
+		/usr/local/include/boost/iostreams/detail/forward.hpp \
+		/usr/local/include/boost/iostreams/detail/config/limits.hpp \
+		/usr/local/include/boost/iostreams/detail/push_params.hpp \
+		/usr/local/include/boost/iostreams/detail/iostream.hpp \
+		/usr/local/include/boost/iostreams/detail/select.hpp \
+		/usr/local/include/boost/iostreams/stream_buffer.hpp \
+		/usr/local/include/boost/iostreams/detail/streambuf/direct_streambuf.hpp \
+		/usr/local/include/boost/iostreams/detail/error.hpp \
+		/usr/local/include/boost/iostreams/detail/execute.hpp \
+		/usr/local/include/boost/utility/result_of.hpp \
+		/usr/local/include/boost/iostreams/detail/functional.hpp \
+		/usr/local/include/boost/iostreams/close.hpp \
+		/usr/local/include/boost/iostreams/categories.hpp \
+		/usr/local/include/boost/iostreams/flush.hpp \
+		/usr/local/include/boost/iostreams/detail/dispatch.hpp \
+		/usr/local/include/boost/iostreams/traits.hpp \
+		/usr/local/include/boost/iostreams/detail/bool_trait_def.hpp \
+		/usr/local/include/boost/iostreams/detail/template_params.hpp \
+		/usr/local/include/boost/iostreams/detail/is_iterator_range.hpp \
+		/usr/local/include/boost/iostreams/detail/config/disable_warnings.hpp \
+		/usr/local/include/boost/iostreams/detail/config/enable_warnings.hpp \
+		/usr/local/include/boost/iostreams/detail/select_by_size.hpp \
+		/usr/local/include/boost/iostreams/detail/wrap_unwrap.hpp \
+		/usr/local/include/boost/iostreams/detail/enable_if_stream.hpp \
+		/usr/local/include/boost/iostreams/traits_fwd.hpp \
+		/usr/local/include/boost/range/iterator_range.hpp \
+		/usr/local/include/boost/range/iterator_range_io.hpp \
+		/usr/local/include/boost/iostreams/detail/streambuf.hpp \
+		/usr/local/include/boost/iostreams/operations_fwd.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/non_blocking_adapter.hpp \
+		/usr/local/include/boost/iostreams/read.hpp \
+		/usr/local/include/boost/iostreams/char_traits.hpp \
+		/usr/local/include/boost/iostreams/detail/vc6/read.hpp \
+		/usr/local/include/boost/iostreams/seek.hpp \
+		/usr/local/include/boost/iostreams/positioning.hpp \
+		/usr/local/include/boost/iostreams/detail/config/codecvt.hpp \
+		/usr/local/include/boost/iostreams/detail/config/fpos.hpp \
+		/usr/local/include/boost/iostreams/write.hpp \
+		/usr/local/include/boost/iostreams/detail/vc6/write.hpp \
+		/usr/local/include/boost/iostreams/detail/vc6/close.hpp \
+		/usr/local/include/boost/iostreams/detail/optional.hpp \
+		/usr/local/include/boost/iostreams/detail/streambuf/linked_streambuf.hpp \
+		/usr/local/include/boost/iostreams/operations.hpp \
+		/usr/local/include/boost/iostreams/imbue.hpp \
+		/usr/local/include/boost/iostreams/input_sequence.hpp \
+		/usr/local/include/boost/iostreams/optimal_buffer_size.hpp \
+		/usr/local/include/boost/iostreams/output_sequence.hpp \
+		/usr/local/include/boost/iostreams/detail/streambuf/indirect_streambuf.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/concept_adapter.hpp \
+		/usr/local/include/boost/iostreams/concepts.hpp \
+		/usr/local/include/boost/iostreams/detail/default_arg.hpp \
+		/usr/local/include/boost/iostreams/detail/call_traits.hpp \
+		/usr/local/include/boost/iostreams/detail/config/unreachable_return.hpp \
+		/usr/local/include/boost/iostreams/device/null.hpp \
+		/usr/local/include/boost/iostreams/detail/buffer.hpp \
+		/usr/local/include/boost/iostreams/checked_operations.hpp \
+		/usr/local/include/boost/iostreams/get.hpp \
+		/usr/local/include/boost/iostreams/put.hpp \
+		/usr/local/include/boost/iostreams/detail/double_object.hpp \
+		/usr/local/include/boost/iostreams/detail/push.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/range_adapter.hpp \
+		/usr/local/include/boost/iostreams/pipeline.hpp \
+		/usr/local/include/boost/iostreams/detail/resolve.hpp \
+		/usr/local/include/boost/detail/is_incrementable.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/mode_adapter.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/output_iterator_adapter.hpp \
+		/usr/local/include/boost/iostreams/detail/is_dereferenceable.hpp \
+		/usr/local/include/boost/iostreams/device/array.hpp \
+		/usr/local/include/boost/iostreams/detail/broken_overload_resolution/stream_buffer.hpp \
+		/usr/local/include/boost/iostreams/detail/broken_overload_resolution/forward.hpp \
+		/usr/local/include/boost/iostreams/detail/broken_overload_resolution/stream.hpp \
+		/usr/local/include/boost/iostreams/tee.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/device_adapter.hpp \
+		/usr/local/include/boost/iostreams/detail/adapter/filter_adapter.hpp \
+		/Users/jmacey/NGL/include/ngl/ShaderLib.h \
+		/Users/jmacey/NGL/include/ngl/Shader.h \
+		/Users/jmacey/NGL/include/ngl/ShaderProgram.h \
+		/Users/jmacey/NGL/include/ngl/Util.h \
+		/Users/jmacey/NGL/include/ngl/Mat3.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/Emitter.o src/Emitter.cpp
 
 obj/main.o: src/main.cpp include/NGLScene.h \
@@ -4580,6 +4673,7 @@ obj/Particle.o: src/Particle.cpp include/Particle.h \
 		/Users/jmacey/Qt5.3.2/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLContext \
 		/Users/jmacey/Qt5.3.2/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		/Users/jmacey/NGL/include/ngl/Colour.h \
+		/Users/jmacey/NGL/include/ngl/VertexArrayObject.h \
 		/Users/jmacey/NGL/include/ngl/Camera.h \
 		/Users/jmacey/NGL/include/ngl/Vec4.h \
 		/Users/jmacey/NGL/include/ngl/Vec2.h \
@@ -5126,7 +5220,6 @@ obj/Particle.o: src/Particle.cpp include/Particle.h \
 		/Users/jmacey/NGL/include/ngl/Util.h \
 		/Users/jmacey/NGL/include/ngl/Mat3.h \
 		/Users/jmacey/NGL/include/ngl/VAOPrimitives.h \
-		/Users/jmacey/NGL/include/ngl/VertexArrayObject.h \
 		include/Emitter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/Particle.o src/Particle.cpp
 

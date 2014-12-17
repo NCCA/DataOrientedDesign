@@ -91,8 +91,8 @@ void Emitter::update()
 		glPtr[glIndex+1]=m_particles[i].m_py;
 		glPtr[glIndex+2]=m_particles[i].m_pz;
 		// if we go below the origin re-set
-		//if(m_particles[i].m_py <= m_pos.m_y-0.01)
-		if(m_particles[i].m_currentLife > 1.0)
+		if(m_particles[i].m_py <= m_pos.m_y-0.01)
+		//if(m_particles[i].m_currentLife > 1.0)
 		{
 			m_particles[i].m_px=m_pos.m_x;
 			m_particles[i].m_pz=m_pos.m_y;

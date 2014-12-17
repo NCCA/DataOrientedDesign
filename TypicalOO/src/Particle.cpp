@@ -57,7 +57,7 @@ void Particle::draw()
   MVP=pos*m_emitter->getCam()->getVPMatrix() ;
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
 
-  shader->setShaderParamFromMat4("MVP",MVP);
+  shader->setRegisteredUniform("MVP",MVP);
   m_vao->draw();
 
 }

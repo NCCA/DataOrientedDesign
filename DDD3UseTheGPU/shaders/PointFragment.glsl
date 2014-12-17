@@ -6,7 +6,7 @@ in block
     vec4 color;
     vec2 texCoord;
 } In;
-in vec4 colour;
+//in vec4 colour;
 
 layout(location=0) out vec4 fragColour;
 
@@ -18,7 +18,7 @@ void main ()
 //  //if (i < 0.000001) discard;
 
 //  fragColour = vec4(In.color.rgb, i);
-fragColour=vec4(colour);
+fragColour=vec4(1);
  // fragColour=vec4(r);
 }
 

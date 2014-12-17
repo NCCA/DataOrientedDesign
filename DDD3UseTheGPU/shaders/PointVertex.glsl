@@ -125,15 +125,15 @@ out block
      vec2 texCoord;
 } Out;
 
-out vec4 colour;
+//out vec4 colour;
 
 void main()
 {
 
-  gl_PointSize=clamp(inVert.z,0,24);
-  vec3 outV=inVert*snoise(inVert);
-  colour.rgb=vec3(1,1,0)*abs(snoise(inVert));
-  colour.a=1-clamp(inVert.y/10,0,1);
+//  gl_PointSize=clamp(inVert.z,0,24);
+//  vec3 outV=inVert*snoise(inVert);
+//  colour.rgb=vec3(1,1,0)*abs(snoise(inVert));
+//  colour.a=1-clamp(inVert.y/10,0,1);
 //  // expand points to quads without using GS
 //   int particleID = gl_VertexID >> 2; // 4 vertices per particle
 //   vec4 particlePos = vec4(inVert,1);
@@ -147,7 +147,7 @@ void main()
 //   vec4 vertexPosEye = particlePosEye + vec4((quadPos*2.0-1.0)*spriteSize, 0, 0);
 
 //   Out.texCoord = quadPos;
-   gl_Position = MVP * vec4(outV,1);
+   gl_Position = MVP * vec4(inVert,1);
 
 
 

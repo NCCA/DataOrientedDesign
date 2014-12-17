@@ -3,7 +3,7 @@
 #include <vector>
 #include <ngl/Camera.h>
 #include <ngl/Vec3.h>
-
+#include <ngl/VertexArrayObject.h>
 typedef struct Particle
 {
 	/// @brief the curent particle position
@@ -52,6 +52,7 @@ private :
   std::string m_shaderName;
   /// @brief a pointer to the camera used for drawing
   ngl::Camera *m_cam;
+  ngl::VertexArrayObject *m_vao;
 
 };
 

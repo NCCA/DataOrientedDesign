@@ -8,6 +8,7 @@
 #include <ngl/NGLInit.h>
 #include <ngl/VAOPrimitives.h>
 #include <ngl/ShaderLib.h>
+#include <ngl/Logger.h>
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -41,6 +42,8 @@ NGLScene::~NGLScene()
   ngl::NGLInit *Init = ngl::NGLInit::instance();
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
   Init->NGLQuit();
+  ngl::Logger::instance()->close();
+
 }
 
 void NGLScene::resizeEvent(QResizeEvent *_event )
@@ -104,6 +107,7 @@ void NGLScene::initialize()
   shader->linkProgramObject("Point");
   // and make it active ready to load values
   (*shader)["Point"]->use();
+  shader->autoRegisterUniforms("Point");
 
   m_wind=new ngl::Vec3(1,1,1);
   m_emitter = new Emitter(ngl::Vec3(0,0,0),200000,m_wind);

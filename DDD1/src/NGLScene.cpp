@@ -8,6 +8,7 @@
 #include <ngl/NGLInit.h>
 #include <ngl/VAOPrimitives.h>
 #include <ngl/ShaderLib.h>
+#include <ngl/Logger.h>
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -41,6 +42,8 @@ NGLScene::~NGLScene()
   ngl::NGLInit *Init = ngl::NGLInit::instance();
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
   Init->NGLQuit();
+  ngl::Logger::instance()->close();
+
 }
 
 void NGLScene::resizeEvent(QResizeEvent *_event )
@@ -82,56 +85,33 @@ void NGLScene::initialize()
   // now to load the shader and set the values
   // grab an instance of shader manager
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  // we are creating a shader called Phong
-  shader->createShaderProgram("Phong");
+  // we are creating a shader called Point
+  shader->createShaderProgram("Point");
   // now we are going to create empty shaders for Frag and Vert
-  shader->attachShader("PhongVertex",ngl::VERTEX);
-  shader->attachShader("PhongFragment",ngl::FRAGMENT);
+  shader->attachShader("PointVertex",ngl::VERTEX);
+  shader->attachShader("PointFragment",ngl::FRAGMENT);
   // attach the source
-  shader->loadShaderSource("PhongVertex","shaders/Phong.vs");
-  shader->loadShaderSource("PhongFragment","shaders/Phong.fs");
+  shader->loadShaderSource("PointVertex","shaders/PointVertex.glsl");
+  shader->loadShaderSource("PointFragment","shaders/PointFragment.glsl");
   // compile the shaders
-  shader->compileShader("PhongVertex");
-  shader->compileShader("PhongFragment");
+  shader->compileShader("PointVertex");
+  shader->compileShader("PointFragment");
   // add them to the program
-  shader->attachShaderToProgram("Phong","PhongVertex");
-  shader->attachShaderToProgram("Phong","PhongFragment");
+  shader->attachShaderToProgram("Point","PointVertex");
+  shader->attachShaderToProgram("Point","PointFragment");
   // now bind the shader attributes for most NGL primitives we use the following
   // layout attribute 0 is the vertex data (x,y,z)
-  shader->bindAttribute("Phong",0,"inVert");
-  // attribute 1 is the UV data u,v (if present)
-  shader->bindAttribute("Phong",1,"inUV");
-  // attribute 2 are the normals x,y,z
-  shader->bindAttribute("Phong",2,"inNormal");
+  shader->bindAttribute("Point",0,"inVert");
 
   // now we have associated this data we can link the shader
-  shader->linkProgramObject("Phong");
+  shader->linkProgramObject("Point");
   // and make it active ready to load values
-  (*shader)["Phong"]->use();
-  shader->setShaderParam1i("Normalize",1);
-
-  // now pass the modelView and projection values to the shader
-  // the shader will use the currently active material and light0 so set them
-  ngl::Material m(ngl::GOLD);
-  m.loadToShader("material");
-  ngl::Light light(ngl::Vec3(2,2,20),ngl::Colour(1,1,1,1),ngl::Colour(1,1,1,1),ngl::POINTLIGHT);
-  // now create our light this is done after the camera so we can pass the
-  // transpose of the projection matrix to the light to do correct eye space
-  // transformations
-  ngl::Mat4 iv=m_cam->getViewMatrix();
-  iv.transpose();
-  light.setTransform(iv);
-  light.setAttenuation(1,0,0);
-  light.enable();
-  light.loadToShader("light");
-
-  ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
-
-  prim->createSphere("sphere",0.1,10);
+  (*shader)["Point"]->use();
+  shader->autoRegisterUniforms("Point");
   m_wind=new ngl::Vec3(1,1,1);
-  m_emitter = new Emitter(ngl::Vec3(0,0,0),20000,m_wind);
+  m_emitter = new Emitter(ngl::Vec3(0,0,0),200000,m_wind);
   m_emitter->setCam(m_cam);
-  m_emitter->setShaderName("Phong");
+  m_emitter->setShaderName("Point");
 
   m_text=new ngl::Text(QFont("Arial",14));
   m_text->setScreenSize(width(),height());
@@ -140,6 +120,7 @@ void NGLScene::initialize()
   m_particleTimer=startTimer(20);
   m_text = new ngl::Text(QFont("Arial",14));
   m_text->setScreenSize(width(),height());
+  ngl::VAOPrimitives::instance()->createSphere("sphere",0.01,2);
 
 }
 
