@@ -7,11 +7,12 @@
 #include "Emitter.h"
 /// @brief ctor
 /// @param _pos the start position of the particle
-Particle::Particle(ngl::Vec3 _pos, ngl::Vec3 *_wind,  Emitter *_emitter   )
+Particle::Particle(ngl::Vec3 _pos, ngl::Vec3 *_wind,  Emitter *_emitter , ngl::VertexArrayObject *vao  )
 {
 	m_pos=_pos;
 	m_origin=_pos;
 	m_wind=_wind;
+	m_vao=vao;
   ngl::Random *rand=ngl::Random::instance();
 	m_dir.m_x=rand->randomNumber(5)+0.5;
 	m_dir.m_y=rand->randomPositiveNumber(10)+0.5;
@@ -50,24 +51,13 @@ void Particle::update()
 void Particle::draw()
 {
   // get the VBO instance and draw the built in teapot
-  ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
-  ngl::Transformation transform;
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  shader->use(m_emitter->getShaderName());
-  transform.setPosition(m_pos);
-  ngl::Mat4 MV;
+  ngl::Mat4 pos;
+  pos.translate(m_pos.m_x,m_pos.m_y,m_pos.m_z);
   ngl::Mat4 MVP;
-  ngl::Mat3 normalMatrix;
-  ngl::Mat4 M;
-  M=transform.getMatrix();
-  MV=transform.getMatrix()*m_emitter->getCam()->getViewMatrix();
-  MVP=MV*m_emitter->getCam()->getProjectionMatrix() ;
-  normalMatrix=MV;
-  normalMatrix.inverse();
-  shader->setShaderParamFromMat4("MV",MV);
+  MVP=pos*m_emitter->getCam()->getVPMatrix() ;
+  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
+
   shader->setShaderParamFromMat4("MVP",MVP);
-  shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
-  shader->setShaderParamFromMat4("M",M);
-  prim->draw("sphere");
+  m_vao->draw();
 
 }

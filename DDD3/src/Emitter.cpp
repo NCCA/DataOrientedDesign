@@ -19,7 +19,7 @@ Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 		p.m_px=_pos.m_x;
 		p.m_py=_pos.m_y;
 		p.m_pz=_pos.m_z;
-		p.m_px=rand->randomNumber(5)+0.5;
+		p.m_dx=rand->randomNumber(5)+0.5;
 		p.m_dy=rand->randomPositiveNumber(10)+0.5;
 		p.m_dz=rand->randomNumber(5)+0.5;
 		p.m_currentLife=0.0;

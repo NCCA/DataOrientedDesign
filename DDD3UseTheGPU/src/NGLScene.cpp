@@ -8,6 +8,7 @@
 #include <ngl/NGLInit.h>
 #include <ngl/VAOPrimitives.h>
 #include <ngl/ShaderLib.h>
+#include <ngl/Logger.h>
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -31,7 +32,8 @@ NGLScene::NGLScene(QWindow *_parent) : OpenGLWindow(_parent)
   m_fps=0;
   m_frames=0;
   m_timer.start();
-
+  ngl::Logger *log = ngl::Logger::instance();
+  log->logMessage("Testing the logger");
 
 }
 
@@ -39,8 +41,11 @@ NGLScene::NGLScene(QWindow *_parent) : OpenGLWindow(_parent)
 NGLScene::~NGLScene()
 {
   ngl::NGLInit *Init = ngl::NGLInit::instance();
+  delete m_emitter;
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
   Init->NGLQuit();
+  ngl::Logger *log = ngl::Logger::instance();
+  log->close();
 }
 
 void NGLScene::resizeEvent(QResizeEvent *_event )
@@ -96,18 +101,12 @@ void NGLScene::initialize()
   // add them to the program
   shader->attachShaderToProgram("Point","PointVertex");
   shader->attachShaderToProgram("Point","PointFragment");
-  // now bind the shader attributes for most NGL primitives we use the following
-//  // layout attribute 0 is the vertex data (x,y,z)
-//  shader->bindAttribute("Phong",0,"inVert");
-//  // attribute 1 is the UV data u,v (if present)
-//  shader->bindAttribute("Phong",1,"inUV");
-//  // attribute 2 are the normals x,y,z
-//  shader->bindAttribute("Phong",2,"inNormal");
-
   // now we have associated this data we can link the shader
   shader->linkProgramObject("Point");
   // and make it active ready to load values
   (*shader)["Point"]->use();
+  shader->autoRegisterUniforms("Point");
+
   //shader->setShaderParam1i("Normalize",1);
 
 //  // now pass the modelView and projection values to the shader
@@ -151,7 +150,23 @@ void NGLScene::render()
   // grab an instance of the shader manager
   // clear the screen and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  m_emitter->draw();
+
+  // Rotation based on the mouse position for our global transform
+   ngl::Mat4 rotX;
+   ngl::Mat4 rotY;
+   // create the rotation matrices
+   rotX.rotateX(m_spinXFace);
+   rotY.rotateY(m_spinYFace);
+   // multiply the rotations
+   ngl::Mat4 mouseGlobalTX=rotY*rotX;
+   // add the translations
+   mouseGlobalTX.m_m[3][0] = m_modelPos.m_x;
+   mouseGlobalTX.m_m[3][1] = m_modelPos.m_y;
+   mouseGlobalTX.m_m[3][2] = m_modelPos.m_z;
+
+
+
+  m_emitter->draw(mouseGlobalTX);
   m_text->setColour(1,1,1);
   QString text=QString("Wind Vector  %1 %2 %3").arg(m_wind->m_x).arg(m_wind->m_y).arg(m_wind->m_z);
   m_text->renderText(10,20,text);
@@ -160,6 +175,11 @@ void NGLScene::render()
   m_text->setColour(1,1,0);
   text=QString("%1 fps").arg(m_fps);
   m_text->renderText(10,40,text);
+  //glPointSize(1.0);
+  glEnable(GL_PROGRAM_POINT_SIZE);
+  // Enable blending
+   glEnable(GL_BLEND);
+   glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
  }
 
 //----------------------------------------------------------------------------------------------------------------------

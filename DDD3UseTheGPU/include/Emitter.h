@@ -55,7 +55,8 @@ public :
 	/// @brief a method to update each of the particles contained in the system
 	void update();
 	/// @brief a method to draw all the particles contained in the system
-	void draw();
+	void draw(const ngl::Mat4 &_rot);
+	~Emitter();
   inline void setCam(ngl::Camera *_cam){m_cam=_cam;}
   inline ngl::Camera * getCam()const {return m_cam;}
   inline void setShaderName(const std::string &_n){m_shaderName=_n;}

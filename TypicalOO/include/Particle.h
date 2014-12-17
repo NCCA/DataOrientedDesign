@@ -3,6 +3,7 @@
 
 #include <ngl/Vec3.h>
 #include <ngl/Colour.h>
+#include <ngl/VertexArrayObject.h>
 
 class Emitter;
 
@@ -12,7 +13,7 @@ public :
 
 	/// @brief ctor
 	/// @param _pos the start position of the particle
-	Particle(ngl::Vec3 _pos,ngl::Vec3 *_wind, Emitter *_emitter	);
+	Particle(ngl::Vec3 _pos,ngl::Vec3 *_wind, Emitter *_emitter, ngl::VertexArrayObject *vao	);
 	/// @brief a method to update the particle position
 	void update();
 	/// @brief a method to draw the particle
@@ -33,6 +34,7 @@ private :
 	ngl::Vec3 *m_wind;
   /// @brief a pointer to our emitter
   const Emitter *m_emitter;
+  ngl::VertexArrayObject *m_vao;
 };
 
 
