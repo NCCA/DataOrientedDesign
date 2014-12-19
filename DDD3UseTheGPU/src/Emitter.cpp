@@ -23,7 +23,7 @@ Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 	m_glparticles = new GLParticle[_numParticles];
 	m_vao=ngl::VertexArrayObject::createVOA(GL_POINTS);
 
-	#pragma omp parallel for ordered schedule(dynamic)
+    #pragma omp parallel for ordered schedule(dynamic)
 	for (int i=0; i< _numParticles; ++i)
 	{		
 
@@ -72,8 +72,8 @@ void Emitter::update()
 
 	m_vao->bind();
 	ngl::Real *glPtr=m_vao->getDataPointer(0);
-	unsigned int glIndex=0;
-	#pragma omp parallel for private(glIndex=0)
+    unsigned int glIndex=0;
+    #pragma omp parallel for
 
 	for(int i=0; i<m_numParticles; ++i)
 	{
