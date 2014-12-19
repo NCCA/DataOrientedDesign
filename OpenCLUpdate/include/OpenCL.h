@@ -1,9 +1,10 @@
 #ifndef OPENCL_H__
 #define OPENCL_H__
-#ifdef DARWIN
-    #include <OpenCL/opencl.h>
+
+#ifdef __APPLE__
+  #include <OpenCL/opencl.h>
 #else
-    #include <CL/opencl.h>
+  #include <CL/opencl.h>
 #endif
 #include <string>
 
@@ -19,12 +20,11 @@ class OpenCL
     inline cl_device_id getID()const {return m_deviceID;}
     void createKernel(const std::string &_name);
     ~OpenCL();
-    void getError(int _err);
+    void printError(int _err) const ;
+    static void printCLInfo()  ;
 
   private :
     void initCL();
-    size_t m_global;                      // global domain size for our calculation
-    size_t m_local;                       // local domain size for our calculation
 
     cl_device_id m_deviceID;             // compute device id
     cl_context m_context;                 // compute context

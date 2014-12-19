@@ -258,15 +258,21 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   {
   // escape key to quite
   case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
-    case Qt::Key_Up : m_wind->m_y+=0.1; break;
-    case Qt::Key_Down : m_wind->m_y-=0.1; break;
-    case Qt::Key_Left : m_wind->m_x+=0.1; break;
-    case Qt::Key_Right : m_wind->m_x-=0.1; break;
+  case Qt::Key_Up : m_wind->m_y+=0.1; break;
+  case Qt::Key_Down : m_wind->m_y-=0.1; break;
+  case Qt::Key_Left : m_wind->m_x+=0.1; break;
+  case Qt::Key_Right : m_wind->m_x-=0.1; break;
+  case Qt::Key_A : m_emitter->updatePos(-0.1,0,0); break;
+  case Qt::Key_D : m_emitter->updatePos(0.1,0,0); break;
+  case Qt::Key_W : m_emitter->updatePos(0,0,-0.1); break;
+  case Qt::Key_S : m_emitter->updatePos(0,0,0.1); break;
 
-		case Qt::Key_I : m_wind->m_z+=0.1; break;
-		case Qt::Key_O : m_wind->m_z-=0.1; break;
+  case Qt::Key_I : m_wind->m_z+=0.1; break;
+  case Qt::Key_O : m_wind->m_z-=0.1; break;
+  case Qt::Key_1 : m_emitter->incTime(1.0); break;
+  case Qt::Key_2: m_emitter->decTime(1.0); break;
 
-    case Qt::Key_Space : m_wind->set(1,1,1); break;
+  case Qt::Key_Space : m_wind->set(1,1,1); break;
   default : break;
   }
   // finally update the GLWindow and re-draw

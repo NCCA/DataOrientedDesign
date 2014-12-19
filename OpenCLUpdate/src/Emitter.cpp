@@ -12,10 +12,11 @@
 Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 {
 
-    std::cout<<"creating kernel\n";
+
+	OpenCL::printCLInfo();
 	m_cl = new OpenCL("kernel/updateparticle.cl");
 	m_cl->createKernel("updateparticle");
-    std::cout<<"creating buffers\n";
+	m_time=1.0;
 
 	m_input = clCreateBuffer(m_cl->getContext(),  CL_MEM_READ_WRITE,  sizeof(Particle) * _numParticles, NULL, NULL);
 	m_output = clCreateBuffer(m_cl->getContext(), CL_MEM_WRITE_ONLY, sizeof(GLParticle) * _numParticles, NULL, NULL);
@@ -150,7 +151,7 @@ void Emitter::update()
   err = clEnqueueNDRangeKernel(m_cl->getCommands(), m_cl->getKernel(), 1, NULL, &m_numParticles, &m_workgroupsize, 0, NULL, NULL);
   if (err)
   {
-      m_cl->getError(err);
+      m_cl->printError(err);
       std::cerr<<"Error: Failed to execute kernel!\n";
       exit( EXIT_FAILURE);
   }
@@ -176,6 +177,14 @@ void Emitter::update()
 
 	m_vao->unbind();
 	static int rot=0;
+	static float time=0.0;
+	float pointOnCircleX= cos(ngl::radians(time))*4.0;
+	float pointOnCircleZ= sin(ngl::radians(time))*4.0;
+	ngl::Vec3 end(pointOnCircleX,2.0,pointOnCircleZ);
+	end=end-m_pos;
+	//end.normalize();
+	time+=m_time;
+	//std::cout<<end;
 	for(unsigned int i=0; i<m_numParticles; ++i)
 	{
 		m_particles[i].m_currentLife+=0.01;
@@ -192,10 +201,12 @@ void Emitter::update()
 
 			m_particles[i].m_currentLife=0.0;
 			ngl::Random *rand=ngl::Random::instance();
-			m_particles[i].m_dx=cos(ngl::radians(rot))*rand->randomNumber(5)+0.5;
-			m_particles[i].m_dy=rand->randomPositiveNumber(10)+0.5;
-			m_particles[i].m_dz=sin(ngl::radians(rot))*rand->randomNumber(5)+0.5;
-
+			//m_particles[i].m_dx=cos(ngl::radians(rot))*rand->randomNumber(5)+0.5;
+			//m_particles[i].m_dy=rand->randomPositiveNumber(10)+0.5;
+			//m_particles[i].m_dz=sin(ngl::radians(rot))*rand->randomNumber(5)+0.5;
+			m_particles[i].m_dx=end.m_x+rand->randomNumber(2)+0.5;
+			m_particles[i].m_dy=end.m_y+rand->randomPositiveNumber(10)+0.5;
+			m_particles[i].m_dz=end.m_z+rand->randomNumber(2)+0.5;
 
 		}
 
