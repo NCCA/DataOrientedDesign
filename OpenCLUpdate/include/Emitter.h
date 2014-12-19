@@ -60,6 +60,14 @@ public :
   inline ngl::Camera * getCam()const {return m_cam;}
   inline void setShaderName(const std::string &_n){m_shaderName=_n;}
   inline const std::string getShaderName()const {return m_shaderName;}
+  inline void incTime(float _t){m_time+=_t;}
+  inline void decTime(float _t){m_time-=_t;}
+  inline void updatePos(float _x, float _y, float _z){
+    m_pos.m_x+=_x;
+    m_pos.m_y+=_y;
+    m_pos.m_z+=_z;
+  }
+
 private :
 	/// @brief the position of the emitter
 	ngl::Vec3 m_pos;
@@ -79,6 +87,7 @@ private :
   cl_mem m_input;                       // device memory used for the input array
   cl_mem m_output;                      // device memory used for the output array
   size_t m_workgroupsize;
+  float m_time;
 
 };
 

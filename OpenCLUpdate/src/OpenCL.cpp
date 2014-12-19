@@ -23,6 +23,44 @@ OpenCL::~OpenCL()
   clReleaseContext(m_context);
 }
 
+
+void OpenCL::printCLInfo()
+{
+  int NAMESIZE=1024;
+  cl_uint plat_count;
+  clGetPlatformIDs (0, NULL, &plat_count);
+  cl_platform_id *platforms =  new cl_platform_id [plat_count];
+  clGetPlatformIDs(plat_count, platforms, NULL);
+  for (cl_uint i = 0; i < plat_count; ++i)
+  {
+    char buf[NAMESIZE];
+    clGetPlatformInfo(platforms[i], CL_PLATFORM_VENDOR, sizeof(buf), buf, NULL);
+    std::cerr<<"platform "<<i<<": vendor "<<buf<<"\n";
+
+    // get number of devices in platform
+    cl_uint dev_count;
+    clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_ALL, 0, NULL, &dev_count);
+
+    cl_device_id *devices = new cl_device_id [dev_count];
+
+    // get list of devices in platform
+    clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_ALL, dev_count, devices, NULL);
+
+    // iterate over devices
+    for (cl_uint j = 0; j < dev_count; ++j)
+    {
+      char buf[NAMESIZE];
+      clGetDeviceInfo(devices[j], CL_DEVICE_NAME,  sizeof(buf), buf, NULL);
+      std::cerr<< "device " << j <<" : "<< buf<<"\n";
+    }
+
+    delete [] devices;
+  }
+  delete [] platforms;
+
+}
+
+
 void OpenCL::initCL()
 {
   int err;                            // error code returned from api calls
@@ -116,7 +154,7 @@ void OpenCL::createKernel(const std::string &_name)
 }
 
 
-void OpenCL::getError(int _err)
+void OpenCL::getError(int _err) const
 {
   switch(_err)
   {

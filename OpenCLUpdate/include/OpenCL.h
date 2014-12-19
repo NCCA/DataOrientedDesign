@@ -16,12 +16,11 @@ class OpenCL
     inline cl_device_id getID()const {return m_deviceID;}
     void createKernel(const std::string &_name);
     ~OpenCL();
-    void getError(int _err);
+    void getError(int _err) const ;
+    static void printCLInfo()  ;
 
   private :
     void initCL();
-    size_t m_global;                      // global domain size for our calculation
-    size_t m_local;                       // local domain size for our calculation
 
     cl_device_id m_deviceID;             // compute device id
     cl_context m_context;                 // compute context
