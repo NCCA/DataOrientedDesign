@@ -151,7 +151,7 @@ void Emitter::update()
   err = clEnqueueNDRangeKernel(m_cl->getCommands(), m_cl->getKernel(), 1, NULL, &m_numParticles, &m_workgroupsize, 0, NULL, NULL);
   if (err)
   {
-      m_cl->getError(err);
+      m_cl->printError(err);
       std::cerr<<"Error: Failed to execute kernel!\n";
       exit( EXIT_FAILURE);
   }

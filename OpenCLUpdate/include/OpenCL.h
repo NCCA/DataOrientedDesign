@@ -1,7 +1,11 @@
 #ifndef OPENCL_H__
 #define OPENCL_H__
 
-#include <OpenCL/opencl.h>
+#ifdef __APPLE__
+  #include <OpenCL/opencl.h>
+#else
+  #include <CL/opencl.h>
+#endif
 #include <string>
 
 class OpenCL
@@ -16,7 +20,7 @@ class OpenCL
     inline cl_device_id getID()const {return m_deviceID;}
     void createKernel(const std::string &_name);
     ~OpenCL();
-    void getError(int _err) const ;
+    void printError(int _err) const ;
     static void printCLInfo()  ;
 
   private :

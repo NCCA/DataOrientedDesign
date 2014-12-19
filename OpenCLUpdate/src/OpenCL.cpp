@@ -72,6 +72,7 @@ void OpenCL::initCL()
   if (err != CL_SUCCESS)
   {
       std::cerr<<"Error: Failed to create a device group!\n";
+      printError(err);
       exit( EXIT_FAILURE);
   }
 
@@ -81,6 +82,7 @@ void OpenCL::initCL()
   if (!m_context)
   {
       std::cerr<<"Error: Failed to create a compute context!\n";
+      printError(err);
       exit( EXIT_FAILURE);
   }
 
@@ -90,6 +92,7 @@ void OpenCL::initCL()
   if (!m_commands)
   {
       std::cerr<<"Error: Failed to create a command commands!\n";
+      printError(err);
       exit( EXIT_FAILURE);
   }
 
@@ -117,6 +120,7 @@ void OpenCL::loadKernelSource(const std::string &_fname)
   if (!m_program)
   {
       std::cerr<<"Error: Failed to create compute program!\n";
+      printError(err);
       exit (EXIT_FAILURE);
   }
   delete source;
@@ -128,6 +132,7 @@ void OpenCL::loadKernelSource(const std::string &_fname)
   {
     // Determine the size of the log
      size_t logSize;
+     printError(err);
      clGetProgramBuildInfo(m_program, m_deviceID, CL_PROGRAM_BUILD_LOG, 0, NULL, &logSize);
 
      // Allocate memory for the log
@@ -149,54 +154,77 @@ void OpenCL::createKernel(const std::string &_name)
   if (!m_kernel || err != CL_SUCCESS)
   {
       std::cerr<<"Error: Failed to create compute kernel!\n";
+      printError(err);
       exit(EXIT_FAILURE);
   }
 }
 
+// modified from http://wiki.tiker.net/OpenCLHowTo
 
-void OpenCL::getError(int _err) const
+void OpenCL::printError(int _err) const
 {
   switch(_err)
   {
-  case CL_INVALID_VALUE : std::cerr<<"CL_INVALID_VALUE"<<"\n"; break;
-  case CL_INVALID_DEVICE_TYPE : std::cerr<<"CL_INVALID_DEVICE_TYPE"<<"\n"; break;
-  case CL_INVALID_PLATFORM : std::cerr<<"CL_INVALID_PLATFORM"<<"\n"; break;
-  case CL_INVALID_DEVICE : std::cerr<<"CL_INVALID_DEVICE"<<"\n"; break;
-  case CL_INVALID_CONTEXT : std::cerr<<"CL_INVALID_CONTEXT"<<"\n"; break;
-  case CL_INVALID_QUEUE_PROPERTIES : std::cerr<<"CL_INVALID_QUEUE_PROPERTIES"<<"\n"; break;
-  case CL_INVALID_COMMAND_QUEUE : std::cerr<<"CL_INVALID_COMMAND_QUEUE"<<"\n"; break;
-  case CL_INVALID_HOST_PTR : std::cerr<<"CL_INVALID_HOST_PTR"<<"\n"; break;
-  case CL_INVALID_MEM_OBJECT : std::cerr<<"CL_INVALID_MEM_OBJECT"<<"\n"; break;
-  case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR : std::cerr<<"CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"<<"\n"; break;
-  case CL_INVALID_IMAGE_SIZE : std::cerr<<"CL_INVALID_IMAGE_SIZE"<<"\n"; break;
-  case CL_INVALID_SAMPLER : std::cerr<<"CL_INVALID_SAMPLER"<<"\n"; break;
-  case CL_INVALID_BINARY : std::cerr<<"CL_INVALID_BINARY"<<"\n"; break;
-  case CL_INVALID_BUILD_OPTIONS : std::cerr<<"CL_INVALID_BUILD_OPTIONS"<<"\n"; break;
-  case CL_INVALID_PROGRAM : std::cerr<<"CL_INVALID_PROGRAM"<<"\n"; break;
-  case CL_INVALID_PROGRAM_EXECUTABLE : std::cerr<<"CL_INVALID_PROGRAM_EXECUTABLE"<<"\n"; break;
-  case CL_INVALID_KERNEL_NAME : std::cerr<<"CL_INVALID_KERNEL_NAME"<<"\n"; break;
-  case CL_INVALID_KERNEL_DEFINITION : std::cerr<<"CL_INVALID_KERNEL_DEFINITION"<<"\n"; break;
-  case CL_INVALID_KERNEL : std::cerr<<"CL_INVALID_KERNEL"<<"\n"; break;
-  case CL_INVALID_ARG_INDEX : std::cerr<<"CL_INVALID_ARG_INDEX"<<"\n"; break;
-  case CL_INVALID_ARG_VALUE : std::cerr<<"CL_INVALID_ARG_VALUE"<<"\n"; break;
-  case CL_INVALID_ARG_SIZE : std::cerr<<"CL_INVALID_ARG_SIZE"<<"\n"; break;
-  case CL_INVALID_KERNEL_ARGS : std::cerr<<"CL_INVALID_KERNEL_ARGS"<<"\n"; break;
-  case CL_INVALID_WORK_DIMENSION : std::cerr<<"CL_INVALID_WORK_DIMENSION"<<"\n"; break;
-  case CL_INVALID_WORK_GROUP_SIZE : std::cerr<<"CL_INVALID_WORK_GROUP_SIZE"<<"\n"; break;
-  case CL_INVALID_WORK_ITEM_SIZE : std::cerr<<"CL_INVALID_WORK_ITEM_SIZE"<<"\n"; break;
-  case CL_INVALID_GLOBAL_OFFSET : std::cerr<<"CL_INVALID_GLOBAL_OFFSET"<<"\n"; break;
-  case CL_INVALID_EVENT_WAIT_LIST : std::cerr<<"CL_INVALID_EVENT_WAIT_LIST"<<"\n"; break;
-  case CL_INVALID_EVENT : std::cerr<<"CL_INVALID_EVENT"<<"\n"; break;
-  case CL_INVALID_OPERATION : std::cerr<<"CL_INVALID_OPERATION"<<"\n"; break;
-  case CL_INVALID_GL_OBJECT : std::cerr<<"CL_INVALID_GL_OBJECT"<<"\n"; break;
-  case CL_INVALID_BUFFER_SIZE : std::cerr<<"CL_INVALID_BUFFER_SIZE"<<"\n"; break;
-  case CL_INVALID_MIP_LEVEL : std::cerr<<"CL_INVALID_MIP_LEVEL"<<"\n"; break;
-  case CL_INVALID_GLOBAL_WORK_SIZE : std::cerr<<"CL_INVALID_GLOBAL_WORK_SIZE"<<"\n"; break;
-  case CL_INVALID_PROPERTY : std::cerr<<"CL_INVALID_PROPERTY"<<"\n"; break;
-  case CL_INVALID_IMAGE_DESCRIPTOR : std::cerr<<"CL_INVALID_IMAGE_DESCRIPTOR"<<"\n"; break;
-  case CL_INVALID_COMPILER_OPTIONS : std::cerr<<"CL_INVALID_COMPILER_OPTIONS"<<"\n"; break;
-  case CL_INVALID_LINKER_OPTIONS : std::cerr<<"CL_INVALID_LINKER_OPTIONS"<<"\n"; break;
-  case CL_INVALID_DEVICE_PARTITION_COUNT : std::cerr<<"CL_INVALID_DEVICE_PARTITION_COUNT"<<"\n"; break;
+  case CL_SUCCESS: std::cerr<< "success\n";
+  case CL_DEVICE_NOT_FOUND: std::cerr<< "device not found\n";
+  case CL_DEVICE_NOT_AVAILABLE: std::cerr<< "device not available\n";
+#if !(defined(CL_PLATFORM_NVIDIA) && CL_PLATFORM_NVIDIA == 0x3001)
+  case CL_COMPILER_NOT_AVAILABLE: std::cerr<< "device compiler not available\n";
+#endif
+  case CL_MEM_OBJECT_ALLOCATION_FAILURE: std::cerr<< "mem object allocation failure\n";
+  case CL_OUT_OF_RESOURCES: std::cerr<< "out of resources\n";
+  case CL_OUT_OF_HOST_MEMORY: std::cerr<< "out of host memory\n";
+  case CL_PROFILING_INFO_NOT_AVAILABLE: std::cerr<< "profiling info not available\n";
+  case CL_MEM_COPY_OVERLAP: std::cerr<< "mem copy overlap\n";
+  case CL_IMAGE_FORMAT_MISMATCH: std::cerr<< "image format mismatch\n";
+  case CL_IMAGE_FORMAT_NOT_SUPPORTED: std::cerr<< "image format not supported\n";
+  case CL_BUILD_PROGRAM_FAILURE: std::cerr<< "build program failure\n";
+  case CL_MAP_FAILURE: std::cerr<< "map failure\n";
+
+  case CL_INVALID_VALUE: std::cerr<< "invalid value\n";
+  case CL_INVALID_DEVICE_TYPE: std::cerr<< "invalid device type\n";
+  case CL_INVALID_PLATFORM: std::cerr<< "invalid platform\n";
+  case CL_INVALID_DEVICE: std::cerr<< "invalid device\n";
+  case CL_INVALID_CONTEXT: std::cerr<< "invalid context\n";
+  case CL_INVALID_QUEUE_PROPERTIES: std::cerr<< "invalid queue properties\n";
+  case CL_INVALID_COMMAND_QUEUE: std::cerr<< "invalid command queue\n";
+  case CL_INVALID_HOST_PTR: std::cerr<< "invalid host ptr\n";
+  case CL_INVALID_MEM_OBJECT: std::cerr<< "invalid mem object\n";
+  case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR: std::cerr<< "invalid image format descriptor\n";
+  case CL_INVALID_IMAGE_SIZE: std::cerr<< "invalid image size\n";
+  case CL_INVALID_SAMPLER: std::cerr<< "invalid sampler\n";
+  case CL_INVALID_BINARY: std::cerr<< "invalid binary\n";
+  case CL_INVALID_BUILD_OPTIONS: std::cerr<< "invalid build options\n";
+  case CL_INVALID_PROGRAM: std::cerr<< "invalid program\n";
+  case CL_INVALID_PROGRAM_EXECUTABLE: std::cerr<< "invalid program executable\n";
+  case CL_INVALID_KERNEL_NAME: std::cerr<< "invalid kernel name\n";
+  case CL_INVALID_KERNEL_DEFINITION: std::cerr<< "invalid kernel definition\n";
+  case CL_INVALID_KERNEL: std::cerr<< "invalid kernel\n";
+  case CL_INVALID_ARG_INDEX: std::cerr<< "invalid arg index\n";
+  case CL_INVALID_ARG_VALUE: std::cerr<< "invalid arg value\n";
+  case CL_INVALID_ARG_SIZE: std::cerr<< "invalid arg size\n";
+  case CL_INVALID_KERNEL_ARGS: std::cerr<< "invalid kernel args\n";
+  case CL_INVALID_WORK_DIMENSION: std::cerr<< "invalid work dimension\n";
+  case CL_INVALID_WORK_GROUP_SIZE: std::cerr<< "invalid work group size\n";
+  case CL_INVALID_WORK_ITEM_SIZE: std::cerr<< "invalid work item size\n";
+  case CL_INVALID_GLOBAL_OFFSET: std::cerr<< "invalid global offset\n";
+  case CL_INVALID_EVENT_WAIT_LIST: std::cerr<< "invalid event wait list\n";
+  case CL_INVALID_EVENT: std::cerr<< "invalid event\n";
+  case CL_INVALID_OPERATION: std::cerr<< "invalid operation\n";
+  case CL_INVALID_GL_OBJECT: std::cerr<< "invalid gl object\n";
+  case CL_INVALID_BUFFER_SIZE: std::cerr<< "invalid buffer size\n";
+  case CL_INVALID_MIP_LEVEL: std::cerr<< "invalid mip level\n";
+
+#if defined(cl_khr_gl_sharing) && (cl_khr_gl_sharing >= 1)
+  case CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: std::cerr<< "invalid gl sharegroup reference number\n";
+#endif
+
+#ifdef CL_VERSION_1_1
+  case CL_MISALIGNED_SUB_BUFFER_OFFSET: std::cerr<< "misaligned sub-buffer offset\n";
+  case CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST: std::cerr<< "exec status error for events in wait list\n";
+  case CL_INVALID_GLOBAL_WORK_SIZE: std::cerr<< "invalid global work size\n";
+#endif
+
   default : std::cerr<<"not sure what this one is "<<_err<<"\n"; break;
   }
 }
