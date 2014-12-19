@@ -165,64 +165,64 @@ void OpenCL::printError(int _err) const
 {
   switch(_err)
   {
-  case CL_SUCCESS: std::cerr<< "success\n";
-  case CL_DEVICE_NOT_FOUND: std::cerr<< "device not found\n";
-  case CL_DEVICE_NOT_AVAILABLE: std::cerr<< "device not available\n";
+  case CL_SUCCESS: std::cerr<< "success\n"; break;
+  case CL_DEVICE_NOT_FOUND: std::cerr<< "device not found\n"; break;
+  case CL_DEVICE_NOT_AVAILABLE: std::cerr<< "device not available\n"; break;
 #if !(defined(CL_PLATFORM_NVIDIA) && CL_PLATFORM_NVIDIA == 0x3001)
-  case CL_COMPILER_NOT_AVAILABLE: std::cerr<< "device compiler not available\n";
+  case CL_COMPILER_NOT_AVAILABLE: std::cerr<< "device compiler not available\n"; break;
 #endif
-  case CL_MEM_OBJECT_ALLOCATION_FAILURE: std::cerr<< "mem object allocation failure\n";
-  case CL_OUT_OF_RESOURCES: std::cerr<< "out of resources\n";
-  case CL_OUT_OF_HOST_MEMORY: std::cerr<< "out of host memory\n";
-  case CL_PROFILING_INFO_NOT_AVAILABLE: std::cerr<< "profiling info not available\n";
-  case CL_MEM_COPY_OVERLAP: std::cerr<< "mem copy overlap\n";
-  case CL_IMAGE_FORMAT_MISMATCH: std::cerr<< "image format mismatch\n";
-  case CL_IMAGE_FORMAT_NOT_SUPPORTED: std::cerr<< "image format not supported\n";
-  case CL_BUILD_PROGRAM_FAILURE: std::cerr<< "build program failure\n";
-  case CL_MAP_FAILURE: std::cerr<< "map failure\n";
+  case CL_MEM_OBJECT_ALLOCATION_FAILURE: std::cerr<< "mem object allocation failure\n"; break;
+  case CL_OUT_OF_RESOURCES: std::cerr<< "out of resources\n"; break;
+  case CL_OUT_OF_HOST_MEMORY: std::cerr<< "out of host memory\n"; break;
+  case CL_PROFILING_INFO_NOT_AVAILABLE: std::cerr<< "profiling info not available\n"; break;
+  case CL_MEM_COPY_OVERLAP: std::cerr<< "mem copy overlap\n"; break;
+  case CL_IMAGE_FORMAT_MISMATCH: std::cerr<< "image format mismatch\n"; break;
+  case CL_IMAGE_FORMAT_NOT_SUPPORTED: std::cerr<< "image format not supported\n"; break;
+  case CL_BUILD_PROGRAM_FAILURE: std::cerr<< "build program failure\n"; break;
+  case CL_MAP_FAILURE: std::cerr<< "map failure\n"; break;
 
-  case CL_INVALID_VALUE: std::cerr<< "invalid value\n";
-  case CL_INVALID_DEVICE_TYPE: std::cerr<< "invalid device type\n";
-  case CL_INVALID_PLATFORM: std::cerr<< "invalid platform\n";
-  case CL_INVALID_DEVICE: std::cerr<< "invalid device\n";
-  case CL_INVALID_CONTEXT: std::cerr<< "invalid context\n";
-  case CL_INVALID_QUEUE_PROPERTIES: std::cerr<< "invalid queue properties\n";
-  case CL_INVALID_COMMAND_QUEUE: std::cerr<< "invalid command queue\n";
-  case CL_INVALID_HOST_PTR: std::cerr<< "invalid host ptr\n";
-  case CL_INVALID_MEM_OBJECT: std::cerr<< "invalid mem object\n";
-  case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR: std::cerr<< "invalid image format descriptor\n";
-  case CL_INVALID_IMAGE_SIZE: std::cerr<< "invalid image size\n";
-  case CL_INVALID_SAMPLER: std::cerr<< "invalid sampler\n";
-  case CL_INVALID_BINARY: std::cerr<< "invalid binary\n";
-  case CL_INVALID_BUILD_OPTIONS: std::cerr<< "invalid build options\n";
-  case CL_INVALID_PROGRAM: std::cerr<< "invalid program\n";
-  case CL_INVALID_PROGRAM_EXECUTABLE: std::cerr<< "invalid program executable\n";
-  case CL_INVALID_KERNEL_NAME: std::cerr<< "invalid kernel name\n";
-  case CL_INVALID_KERNEL_DEFINITION: std::cerr<< "invalid kernel definition\n";
-  case CL_INVALID_KERNEL: std::cerr<< "invalid kernel\n";
-  case CL_INVALID_ARG_INDEX: std::cerr<< "invalid arg index\n";
-  case CL_INVALID_ARG_VALUE: std::cerr<< "invalid arg value\n";
-  case CL_INVALID_ARG_SIZE: std::cerr<< "invalid arg size\n";
-  case CL_INVALID_KERNEL_ARGS: std::cerr<< "invalid kernel args\n";
-  case CL_INVALID_WORK_DIMENSION: std::cerr<< "invalid work dimension\n";
-  case CL_INVALID_WORK_GROUP_SIZE: std::cerr<< "invalid work group size\n";
-  case CL_INVALID_WORK_ITEM_SIZE: std::cerr<< "invalid work item size\n";
-  case CL_INVALID_GLOBAL_OFFSET: std::cerr<< "invalid global offset\n";
-  case CL_INVALID_EVENT_WAIT_LIST: std::cerr<< "invalid event wait list\n";
-  case CL_INVALID_EVENT: std::cerr<< "invalid event\n";
-  case CL_INVALID_OPERATION: std::cerr<< "invalid operation\n";
-  case CL_INVALID_GL_OBJECT: std::cerr<< "invalid gl object\n";
-  case CL_INVALID_BUFFER_SIZE: std::cerr<< "invalid buffer size\n";
-  case CL_INVALID_MIP_LEVEL: std::cerr<< "invalid mip level\n";
+  case CL_INVALID_VALUE: std::cerr<< "invalid value\n"; break;
+  case CL_INVALID_DEVICE_TYPE: std::cerr<< "invalid device type\n"; break;
+  case CL_INVALID_PLATFORM: std::cerr<< "invalid platform\n"; break;
+  case CL_INVALID_DEVICE: std::cerr<< "invalid device\n"; break;
+  case CL_INVALID_CONTEXT: std::cerr<< "invalid context\n"; break;
+  case CL_INVALID_QUEUE_PROPERTIES: std::cerr<< "invalid queue properties\n"; break;
+  case CL_INVALID_COMMAND_QUEUE: std::cerr<< "invalid command queue\n"; break;
+  case CL_INVALID_HOST_PTR: std::cerr<< "invalid host ptr\n"; break;
+  case CL_INVALID_MEM_OBJECT: std::cerr<< "invalid mem object\n"; break;
+  case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR: std::cerr<< "invalid image format descriptor\n"; break;
+  case CL_INVALID_IMAGE_SIZE: std::cerr<< "invalid image size\n"; break;
+  case CL_INVALID_SAMPLER: std::cerr<< "invalid sampler\n"; break;
+  case CL_INVALID_BINARY: std::cerr<< "invalid binary\n"; break;
+  case CL_INVALID_BUILD_OPTIONS: std::cerr<< "invalid build options\n"; break;
+  case CL_INVALID_PROGRAM: std::cerr<< "invalid program\n"; break;
+  case CL_INVALID_PROGRAM_EXECUTABLE: std::cerr<< "invalid program executable\n"; break;
+  case CL_INVALID_KERNEL_NAME: std::cerr<< "invalid kernel name\n"; break;
+  case CL_INVALID_KERNEL_DEFINITION: std::cerr<< "invalid kernel definition\n"; break;
+  case CL_INVALID_KERNEL: std::cerr<< "invalid kernel\n"; break;
+  case CL_INVALID_ARG_INDEX: std::cerr<< "invalid arg index\n"; break;
+  case CL_INVALID_ARG_VALUE: std::cerr<< "invalid arg value\n"; break;
+  case CL_INVALID_ARG_SIZE: std::cerr<< "invalid arg size\n"; break;
+  case CL_INVALID_KERNEL_ARGS: std::cerr<< "invalid kernel args\n"; break;
+  case CL_INVALID_WORK_DIMENSION: std::cerr<< "invalid work dimension\n"; break;
+  case CL_INVALID_WORK_GROUP_SIZE: std::cerr<< "invalid work group size\n"; break;
+  case CL_INVALID_WORK_ITEM_SIZE: std::cerr<< "invalid work item size\n"; break;
+  case CL_INVALID_GLOBAL_OFFSET: std::cerr<< "invalid global offset\n"; break;
+  case CL_INVALID_EVENT_WAIT_LIST: std::cerr<< "invalid event wait list\n"; break;
+  case CL_INVALID_EVENT: std::cerr<< "invalid event\n"; break;
+  case CL_INVALID_OPERATION: std::cerr<< "invalid operation\n"; break;
+  case CL_INVALID_GL_OBJECT: std::cerr<< "invalid gl object\n"; break;
+  case CL_INVALID_BUFFER_SIZE: std::cerr<< "invalid buffer size\n"; break;
+  case CL_INVALID_MIP_LEVEL: std::cerr<< "invalid mip level\n"; break;
 
 #if defined(cl_khr_gl_sharing) && (cl_khr_gl_sharing >= 1)
-  case CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: std::cerr<< "invalid gl sharegroup reference number\n";
+  case CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: std::cerr<< "invalid gl sharegroup reference number\n"; break;
 #endif
 
 #ifdef CL_VERSION_1_1
-  case CL_MISALIGNED_SUB_BUFFER_OFFSET: std::cerr<< "misaligned sub-buffer offset\n";
-  case CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST: std::cerr<< "exec status error for events in wait list\n";
-  case CL_INVALID_GLOBAL_WORK_SIZE: std::cerr<< "invalid global work size\n";
+  case CL_MISALIGNED_SUB_BUFFER_OFFSET: std::cerr<< "misaligned sub-buffer offset\n"; break;
+  case CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST: std::cerr<< "exec status error for events in wait list\n"; break;
+  case CL_INVALID_GLOBAL_WORK_SIZE: std::cerr<< "invalid global work size\n"; break;
 #endif
 
   default : std::cerr<<"not sure what this one is "<<_err<<"\n"; break;
