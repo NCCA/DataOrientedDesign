@@ -73,7 +73,7 @@ void Emitter::update()
 	m_vao->bind();
 	ngl::Real *glPtr=m_vao->getDataPointer(0);
 	unsigned int glIndex=0;
-	#pragma omp parallel for private(glIndex=0)
+	//#pragma omp parallel for private(glIndex)
 
 	for(int i=0; i<m_numParticles; ++i)
 	{
