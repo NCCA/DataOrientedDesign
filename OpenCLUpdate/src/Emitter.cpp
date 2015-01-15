@@ -16,7 +16,7 @@ Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 	OpenCL::printCLInfo();
 	m_cl = new OpenCL("kernel/updateparticle.cl");
 	m_cl->createKernel("updateparticle");
-	m_time=1.0;
+	m_time=0.0;
 
 	m_input = clCreateBuffer(m_cl->getContext(),  CL_MEM_READ_WRITE,  sizeof(Particle) * _numParticles, NULL, NULL);
 	m_output = clCreateBuffer(m_cl->getContext(), CL_MEM_WRITE_ONLY, sizeof(GLParticle) * _numParticles, NULL, NULL);
@@ -50,6 +50,10 @@ Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 	m_particles = new Particle[_numParticles];
 	m_glparticles = new GLParticle[_numParticles];
 	m_vao=ngl::VertexArrayObject::createVOA(GL_POINTS);
+	float pointOnCircleX= cos(ngl::radians(m_time))*4.0;
+	float pointOnCircleZ= sin(ngl::radians(m_time))*4.0;
+	ngl::Vec3 end(pointOnCircleX,2.0,pointOnCircleZ);
+	end=end-m_pos;
 
 	for (int i=0; i< _numParticles; ++i)
 	{		
@@ -57,10 +61,10 @@ Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 		g.px=p.m_px=m_pos.m_x;
 		g.py=p.m_py=m_pos.m_y;
 		g.pz=p.m_pz=m_pos.m_z;
+		p.m_dx=end.m_x+rand->randomNumber(2)+0.5;
+		p.m_dy=end.m_y+rand->randomPositiveNumber(10)+0.5;
+		p.m_dz=end.m_z+rand->randomNumber(2)+0.5;
 
-		p.m_dx=rand->randomNumber(5)+0.5;
-		p.m_dy=rand->randomPositiveNumber(10)+0.5;
-		p.m_dz=rand->randomNumber(5)+0.5;
 		p.m_currentLife=0.0;
 //		p.m_maxLife=rand->randomNumber(3)+0.5;
 //		p.m_gravity=-9;//4.65;
@@ -187,7 +191,7 @@ void Emitter::update()
 	//std::cout<<end;
 	for(unsigned int i=0; i<m_numParticles; ++i)
 	{
-		m_particles[i].m_currentLife+=0.01;
+		m_particles[i].m_currentLife+=0.02;
 		m_particles[i].m_py=m_glparticles[i].py;
 
 		// if we go below the origin re-set
