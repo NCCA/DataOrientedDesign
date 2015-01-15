@@ -4,9 +4,13 @@ TARGET=DDD3
 OBJECTS_DIR=obj
 # core Qt Libs to use add more here if needed.
 QT+=gui opengl core
+<<<<<<< HEAD
 QMAKE_CXXFLAGS += -fopenmp
 LIBS += -fopenmp
 
+=======
+QMAKE_CXX=/usr/bin/g++
+>>>>>>> 0b0506653e0218d5d62a2d4189a21d2422302731
 # as I want to support 4.8 and 5 this will set a flag for some of the mac stuff
 # mainly in the types.h file for the setMacVisual which is native in Qt5
 isEqual(QT_MAJOR_VERSION, 5) {

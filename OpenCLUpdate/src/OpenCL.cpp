@@ -66,9 +66,13 @@ void OpenCL::initCL()
   int err;                            // error code returned from api calls
 
   // Connect to a compute device
-  //
-  int gpu = 0;
-  err = clGetDeviceIDs(0, CL_DEVICE_TYPE_GPU, 1, &m_deviceID, NULL);
+  cl_uint plat_count;
+  clGetPlatformIDs (0, NULL, &plat_count);
+  cl_platform_id *platforms =  new cl_platform_id [plat_count];
+  clGetPlatformIDs(plat_count, platforms, NULL);
+
+  err = clGetDeviceIDs(platforms[0], CL_DEVICE_TYPE_GPU, 1, &m_deviceID, NULL);
+  std::cout<<"Device is "<<m_deviceID<<"\n";
   if (err != CL_SUCCESS)
   {
       std::cerr<<"Error: Failed to create a device group!\n";

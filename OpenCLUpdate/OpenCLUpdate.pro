@@ -59,6 +59,11 @@ linux-g++:QMAKE_CXXFLAGS +=  -march=native
 linux-g++-64:QMAKE_CXXFLAGS +=  -march=native
 # define the _DEBUG flag for the graphics lib
 DEFINES +=NGL_DEBUG
+<<<<<<< HEAD
+=======
+linux-*:INCLUDEPATH+=/public/devel/OpenCL
+linux-*:LIBS+= -L/usr/lib64 -lOpenCL
+>>>>>>> 0b0506653e0218d5d62a2d4189a21d2422302731
 unix:LIBS += -L/usr/local/lib
 unix:LIBS+=-L/usr/lib -lOpenCL
 # add the ngl lib

@@ -109,7 +109,7 @@ void NGLScene::initialize()
 
 
   m_wind=new ngl::Vec3(1,1,1);
-  m_numParticles=(1024*1024);
+  m_numParticles=(1024*1024)*5;
   m_emitter = new Emitter(ngl::Vec3(0,0,0),m_numParticles,m_wind);
   m_emitter->setCam(m_cam);
   m_emitter->setShaderName("Point");
