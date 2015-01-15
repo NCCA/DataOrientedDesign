@@ -61,8 +61,8 @@ linux-g++-64:QMAKE_CXXFLAGS +=  -march=native
 DEFINES +=NGL_DEBUG
 linux-*:INCLUDEPATH+=/public/devel/OpenCL
 linux-*:LIBS+= -L/usr/lib64 -lOpenCL
-unix:LIBS += -L/usr/local/lib
-unix:LIBS+=-L/usr/lib -lOpenCL
+linux-*:LIBS += -L/usr/local/lib
+linux-*:LIBS+=-L/usr/lib -lOpenCL
 # add the ngl lib
 unix:LIBS +=  -L/$(HOME)/NGL/lib -l NGL
 
