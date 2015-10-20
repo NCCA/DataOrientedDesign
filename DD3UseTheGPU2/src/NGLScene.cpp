@@ -85,8 +85,8 @@ void NGLScene::initialize()
   // we are creating a shader called Phong
   shader->createShaderProgram("Point");
   // now we are going to create empty shaders for Frag and Vert
-  shader->attachShader("PointVertex",ngl::VERTEX);
-  shader->attachShader("PointFragment",ngl::FRAGMENT);
+  shader->attachShader("PointVertex",ngl::ShaderType::VERTEX);
+  shader->attachShader("PointFragment",ngl::ShaderType::FRAGMENT);
   // attach the source
   shader->loadShaderSource("PointVertex","shaders/PointVertex.glsl");
   shader->loadShaderSource("PointFragment","shaders/PointFragment.glsl");
