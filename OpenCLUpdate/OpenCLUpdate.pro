@@ -6,7 +6,7 @@ OBJECTS_DIR=obj
 QT+=gui opengl core
 macx:LIBS+= -framework OpenCL
 
-
+CONFIG+=c++11
 
 
 # as I want to support 4.8 and 5 this will set a flag for some of the mac stuff

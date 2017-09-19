@@ -115,16 +115,16 @@ void Emitter::draw()
 		MVP=M*vp ;
 		normalMatrix=MV;
 		normalMatrix.inverse();
-		shader->setShaderParamFromMat4("MV",MV);
-		shader->setShaderParamFromMat4("MVP",MVP);
-		shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
-		shader->setShaderParamFromMat4("M",M);
+		shader->setUniform("MV",MV);
+		shader->setUniform("MVP",MVP);
+		shader->setUniform("normalMatrix",normalMatrix);
+		shader->setUniform("M",M);
 	//	prim->draw("sphere");
 
 	}*/
 
-	shader->setShaderParamFromMat4("MVP",vp);
-	shader->setShaderParamFromMat4("MV",m_cam->getViewMatrix());
+	shader->setUniform("MVP",vp);
+	shader->setUniform("MV",m_cam->getViewMatrix());
 
 	m_vao->bind();
 	m_vao->draw();

@@ -2,9 +2,10 @@
 #include <ngl/Random.h>
 #include <ngl/Transformation.h>
 #include <ngl/ShaderLib.h>
-#include <ngl/VAOPrimitives.h>
+#include <ngl/VAOFactory.h>
 #include <ngl/Logger.h>
 #include <QElapsedTimer>
+
 /// @brief ctor
 /// @param _pos the position of the emitter
 /// @param _numParticles the number of particles to create
@@ -21,9 +22,8 @@ Emitter::Emitter(ngl::Vec3 _pos, int _numParticles, ngl::Vec3 *_wind )
 	m_pos=_pos;
 	m_particles = new Particle[_numParticles];
 	m_glparticles = new GLParticle[_numParticles];
-	m_vao=ngl::VertexArrayObject::createVOA(GL_POINTS);
-
-    #pragma omp parallel for ordered schedule(dynamic)
+  m_vao=ngl::VAOFactory::createVAO(ngl::simpleVAO,GL_POINTS);
+	#pragma omp parallel for ordered schedule(dynamic)
 	for (int i=0; i< _numParticles; ++i)
 	{		
 
@@ -145,16 +145,16 @@ void Emitter::draw(const ngl::Mat4 &_rot)
 		MVP=M*vp ;
 		normalMatrix=MV;
 		normalMatrix.inverse();
-		shader->setShaderParamFromMat4("MV",MV);
-		shader->setShaderParamFromMat4("MVP",MVP);
-		shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
-		shader->setShaderParamFromMat4("M",M);
+		shader->setUniform("MV",MV);
+		shader->setUniform("MVP",MVP);
+		shader->setUniform("normalMatrix",normalMatrix);
+		shader->setUniform("M",M);
 	//	prim->draw("sphere");
 
 	}*/
 
-	shader->setShaderParamFromMat4("MVP",_rot*vp);
-//	shader->setShaderParamFromMat4("MV",m_cam->getViewMatrix());
+	shader->setUniform("MVP",_rot*vp);
+//	shader->setUniform("MV",m_cam->getViewMatrix());
 
 	m_vao->bind();
 	m_vao->draw();

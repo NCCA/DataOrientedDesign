@@ -1,9 +1,9 @@
-#ifndef EMITTER_H__
-#define EMITTER_H__
+#ifndef EMITTER_H_
+#define EMITTER_H_
 #include <vector>
 #include <ngl/Camera.h>
 #include <ngl/Vec3.h>
-#include <ngl/VertexArrayObject.h>
+#include <ngl/SimpleVAO.h>
 #pragma pack(push,1)
 
 typedef struct Particle
@@ -75,7 +75,7 @@ private :
   std::string m_shaderName;
   /// @brief a pointer to the camera used for drawing
   ngl::Camera *m_cam;
-  ngl::VertexArrayObject *m_vao;
+  ngl::SimpleVAO *m_vao;
 
 };
 

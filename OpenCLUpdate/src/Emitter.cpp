@@ -104,7 +104,7 @@ void Emitter::update()
 	QElapsedTimer timer;
 	timer.start();
 	ngl::Logger *log = ngl::Logger::instance();
-	log->setColour(ngl::GREEN);
+	log->setColour(ngl::Colours::GREEN);
 	log->logMessage("Starting emitter update\n");
 
 
@@ -181,7 +181,7 @@ void Emitter::update()
 
 	m_vao->unbind();
 	static int rot=0;
-	static float time=0.0;
+  static float time=0.0;
 	float pointOnCircleX= cos(ngl::radians(time))*4.0;
 	float pointOnCircleZ= sin(ngl::radians(time))*4.0;
 	ngl::Vec3 end(pointOnCircleX,2.0,pointOnCircleZ);
@@ -205,12 +205,9 @@ void Emitter::update()
 
 			m_particles[i].m_currentLife=0.0;
 			ngl::Random *rand=ngl::Random::instance();
-			//m_particles[i].m_dx=cos(ngl::radians(rot))*rand->randomNumber(5)+0.5;
-			//m_particles[i].m_dy=rand->randomPositiveNumber(10)+0.5;
-			//m_particles[i].m_dz=sin(ngl::radians(rot))*rand->randomNumber(5)+0.5;
-			m_particles[i].m_dx=end.m_x+rand->randomNumber(2)+0.5;
-			m_particles[i].m_dy=end.m_y+rand->randomPositiveNumber(10)+0.5;
-			m_particles[i].m_dz=end.m_z+rand->randomNumber(2)+0.5;
+      m_particles[i].m_dx=end.m_x+rand->randomNumber(2)+0.5;
+      m_particles[i].m_dy=end.m_y+rand->randomPositiveNumber(10)+0.5;
+      m_particles[i].m_dz=end.m_z+rand->randomNumber(2)+0.5;
 
 		}
 
@@ -225,7 +222,7 @@ void Emitter::draw(const ngl::Mat4 &_rot)
 	QElapsedTimer timer;
 	timer.start();
 	ngl::Logger *log = ngl::Logger::instance();
-	log->setColour(ngl::CYAN);
+	log->setColour(ngl::Colours::CYAN);
 	log->logMessage("Starting emitter draw\n");
 
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
@@ -247,16 +244,16 @@ void Emitter::draw(const ngl::Mat4 &_rot)
 		MVP=M*vp ;
 		normalMatrix=MV;
 		normalMatrix.inverse();
-		shader->setShaderParamFromMat4("MV",MV);
-		shader->setShaderParamFromMat4("MVP",MVP);
-		shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
-		shader->setShaderParamFromMat4("M",M);
+		shader->setUniform("MV",MV);
+		shader->setUniform("MVP",MVP);
+		shader->setUniform("normalMatrix",normalMatrix);
+		shader->setUniform("M",M);
 	//	prim->draw("sphere");
 
 	}*/
 
-	shader->setShaderParamFromMat4("MVP",_rot*vp);
-//	shader->setShaderParamFromMat4("MV",m_cam->getViewMatrix());
+	shader->setUniform("MVP",_rot*vp);
+//	shader->setUniform("MV",m_cam->getViewMatrix());
 
 	m_vao->bind();
 	m_vao->draw();

@@ -14,13 +14,13 @@
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief the increment for x/y translation with mouse movement
 //----------------------------------------------------------------------------------------------------------------------
-const static float INCREMENT=0.01;
+const static float INCREMENT=0.01f;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief the increment for the wheel zoom
 //----------------------------------------------------------------------------------------------------------------------
-const static float ZOOM=0.1;
+const static float ZOOM=0.1f;
 
-NGLScene::NGLScene(QWindow *_parent) : OpenGLWindow(_parent)
+NGLScene::NGLScene()
 {
   // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
   m_rotate=false;
@@ -40,15 +40,13 @@ NGLScene::NGLScene(QWindow *_parent) : OpenGLWindow(_parent)
 
 NGLScene::~NGLScene()
 {
-  ngl::NGLInit *Init = ngl::NGLInit::instance();
   delete m_emitter;
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
-  Init->NGLQuit();
   ngl::Logger *log = ngl::Logger::instance();
   log->close();
 }
 
-void NGLScene::resizeEvent(QResizeEvent *_event )
+void NGLScene::resizeGL(QResizeEvent *_event )
 {
   if(isExposed())
   {
@@ -58,12 +56,16 @@ void NGLScene::resizeEvent(QResizeEvent *_event )
   glViewport(0,0,w,h);
   // now set the camera size values as the screen size has changed
   m_cam->setShape(45,(float)w/h,0.05,350);
-  renderLater();
+  update();
   }
 }
 
+void NGLScene::resizeGL(int _w, int _h)
+{
 
-void NGLScene::initialize()
+}
+
+void NGLScene::initializeGL()
 {
   // we must call this first before any other GL commands to load and link the
   // gl commands from the lib, if this is not done program will crash
@@ -145,7 +147,7 @@ void NGLScene::initialize()
 
 
 
-void NGLScene::render()
+void NGLScene::paintGL()
 {
   // grab an instance of the shader manager
   // clear the screen and depth buffer
@@ -196,7 +198,7 @@ void NGLScene::mouseMoveEvent (QMouseEvent * _event)
     m_spinYFace += (float) 0.5f * diffx;
     m_origX = _event->x();
     m_origY = _event->y();
-    renderLater();
+    update();
 
   }
         // right mouse translate code
@@ -208,7 +210,7 @@ void NGLScene::mouseMoveEvent (QMouseEvent * _event)
     m_origYPos=_event->y();
     m_modelPos.m_x += INCREMENT * diffX;
     m_modelPos.m_y -= INCREMENT * diffY;
-    renderLater();
+    update();
 
    }
 }
@@ -264,7 +266,7 @@ void NGLScene::wheelEvent(QWheelEvent *_event)
 	{
 		m_modelPos.m_z-=ZOOM;
 	}
-	renderLater();
+	update();
 }
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -289,7 +291,7 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   }
   // finally update the GLWindow and re-draw
   //if (isExposed())
-    renderLater();
+    update();
 }
 
 void NGLScene::timerEvent(QTimerEvent *_event )
@@ -308,6 +310,6 @@ void NGLScene::timerEvent(QTimerEvent *_event )
 			}
 		 }
 			// re-draw GL
-	renderNow();
+	update();
 		// re-draw GL
 }

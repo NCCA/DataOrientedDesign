@@ -38,9 +38,7 @@ NGLScene::NGLScene(QWindow *_parent) : OpenGLWindow(_parent)
 
 NGLScene::~NGLScene()
 {
-  ngl::NGLInit *Init = ngl::NGLInit::instance();
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
-  Init->NGLQuit();
 }
 
 void NGLScene::resizeEvent(QResizeEvent *_event )
