@@ -107,8 +107,8 @@ void Emitter::draw()
 	{
 		pos.translate(m_particles[i].m_pos.m_x,m_particles[i].m_pos.m_y,m_particles[i].m_pos.m_z);
 
-		MVP=pos*m_cam->getVPMatrix() ;
-		shader->setRegisteredUniform("MVP",MVP);
+    MVP=m_cam->getVPMatrix() *pos;
+    shader->setUniform("MVP",MVP);
 		m_vao->draw();
 	}
 

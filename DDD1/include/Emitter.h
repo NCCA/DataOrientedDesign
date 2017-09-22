@@ -1,9 +1,8 @@
-#ifndef EMITTER_H__
-#define EMITTER_H__
+#ifndef EMITTER_H_
+#define EMITTER_H_
 #include <vector>
 #include <ngl/Camera.h>
 #include <ngl/Vec3.h>
-#include <ngl/VertexArrayObject.h>
 
 typedef struct Particle
 {
